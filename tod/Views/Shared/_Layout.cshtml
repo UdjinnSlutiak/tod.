@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+            <div class="container">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item mymenu">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="nav-link" asp-controller="Home" asp-action="Main">Home</a>
+                        }
+                        else
+                        {
+                            <a class="nav-link" asp-controller="Authorization" asp-action="Main">Home</a>
+                        }
+                    </li>
+                    <li class="nav-item mymenu">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="nav-link" asp-controller="Home" asp-action="Newest">Topics</a>
+                            <ul>
+                                <li class="nav-item mymenu">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Newest">Newest</a>
+                                </li>
+                                <li class="nav-item mymenu">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Recommended">Recommended</a>
+                                </li>
+                                <li class="nav-item mymenu">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Favorite">Favorite</a>
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <a class="nav-link" asp-controller="Home" asp-action="Newest">Topics</a>
+                        }
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item mymenu">
+                            <a class="nav-link" asp-controller="Home" asp-action="Profile">Account</a>
+                            <ul>
+                                <li class="nav-item mymenu">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Profile">Profile</a>
+                                </li>
+                                <li class="nav-item mymenu">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Create">Create Topic</a>
+                                </li>
+                                <li class="nav-item mymenu">
+                                    <a class="nav-link" asp-controller="Home" asp-action="MyTopics">My Topics</a>
+                                </li>
+                                <li class="nav-item mymenu">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Discussed">Discussed Topics</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    <li class="nav-item mymenu">
+                        <a class="nav-link" asp-controller="Home" asp-action="Search">Search</a>
+                    </li>
+                </ul>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                    </ul>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div style="display:flex; flex-flow:row">
+                        <ul class="navbar-nav">
+                            <li class="nav-item mymenu">
+                                <a class="nav-link" asp-controller="Home" asp-action="Profile">@User.Identity.Name</a>
+                            </li>
+                            <li class="nav-item mymenu">
+                                <a class="nav-link" style="" asp-controller="Authorization" asp-action="Logout">Log Out</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <ul class="navbar-nav">
+                        <li class="nav-item mymenu">
+                            <a class="nav-link" style="" asp-controller="Authorization" asp-action="Login">Log In</a>
+                        </li>
+                    </ul>
+                    <a class="nav-link" style="text-align:center; padding:0,10px;">  or  </a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item mymenu">
+                            <a class="nav-link" style="" asp-controller="Authorization" asp-action="Register">Register</a>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - tod.
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,156 @@
+﻿@model tod.Models.ViewModels.TopicModel
+
+@{
+    ViewData["Title"] = $"{Model.Topic.User.Nickname}'s Topic";
+}
+
+<div class="text-center">
+    <h4 style="font-weight:bold;">
+        Discuss @Model.Topic.User.Nickname's topic
+    </h4>
+</div>
+
+<hr />
+
+<div class="topic-box" style="background-color:white; display:flex;">
+    <div style="width:95%;">
+        <h5 style="text-align:justify;" asp-for="Title">@Model.Topic.Text</h5>
+        <div style="display:flex; margin-top:10px; vertical-align:bottom;">
+            @foreach (var item in Model.Topic.Tags)
+            {
+                <div class="topic-box" style="background-color: blanchedalmond; color: black; margin-inline-end: 15px; padding-inline-end: 5px; padding-inline-start: 5px; padding-block-start: 0; padding-block-end: 0;">
+                    @item.Name
+                </div>
+            }
+        </div>
+    </div>
+
+    <div style="display:block; text-align:center; border-color:gray; width:5%; margin-inline-start:10px;">
+        <div style="border-width: medium; border-style: solid; color: green; box-shadow: 3px 3px 3px rgba(0,0,0,0.5);">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="reaction-positive" asp-action="TopicReact" asp-controller="Home" asp-route-value="1" asp-route-TopicId="@Model.Topic.Id">▲<br />@Model.TopicPositiveReactions</a>
+
+            }
+            else
+            {
+                <a class="reaction-positive">▲<br />@Model.TopicPositiveReactions</a>
+            }
+
+        </div>
+        <div style="border-width: medium; border-style: solid; color: red; box-shadow: 3px 3px 3px rgba(0,0,0,0.5);">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="reaction-negative" asp-action="TopicReact" asp-controller="Home" asp-route-value="-1" asp-route-TopicId="@Model.Topic.Id">@Model.TopicNegativeReactions<br />▼</a>
+            }
+            else
+            {
+                <a class="reaction-negative">@Model.TopicNegativeReactions<br />▼</a>
+            }
+        </div>
+    </div>
+
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    @if (Model.Topic.User.Nickname != User.Identity.Name)
+    {
+        <div style="display:flex; margin-top:8px;">
+            <a asp-action="AddToFavorite" asp-route-TopicId="@Model.Topic.Id" asp-route-User="@User.Identity.Name" class="btn btn-primary" style="text-align:right;">Add To Favorite</a>
+        </div>
+    } else
+    {
+        <div style="margin-top:8px; text-align:right;">
+            <a asp-action="TopicEditing" asp-route-Id="@Model.Topic.Id" class="btn btn-primary" style="margin-inline-end:15px;">Edit</a>
+            <a asp-action="DeleteTopic" asp-route-Id="@Model.Topic.Id" class="btn btn-primary delete-button">Delete</a>
+        </div>
+    }
+}
+
+<div style="display:flex">
+
+</div>
+
+<hr style="margin-bottom:8px;" />
+
+@if (Model.Topic.Commentaries.Count() == 0)
+{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h4 style="text-align:center">Write first commentary to start discussion</h4>
+    }
+    else
+    {
+        <h4 style="text-align:center">Log in or register and become first to start discussion</h4>
+    }
+}
+else
+{
+    <h5 style="text-align:left;"><b>Discussion:</b></h5>
+}
+
+@if (Model.Topic.Commentaries.Count != 0)
+{
+    <div class="topic-box" style="background-color:white;">
+        <hr style="margin-bottom:5px; margin-top:0;" />
+
+        @foreach (var item in Model.Topic.Commentaries)
+        {
+            <div style="display:flex;">
+                <div style="width:95%;">
+                    <h6 style="text-align:justify; padding-inline-start:10px;">@item.Text</h6>
+
+                    <div>
+                        @if (item.User.Nickname == User.Identity.Name)
+                        {
+                            <h6 style="text-align: right; padding-inline-end: 10px; margin-bottom: 0;"><i><b>@item.User.Nickname</b></i></h6>
+                        }
+                        else
+                        {
+                            <h6 style="text-align:right; padding-inline-end:10px; margin-bottom:0;"><i>@item.User.Nickname</i></h6>
+                        }
+                        <h6 style="text-align: right; padding-inline-end:10px; padding-top:2px; color:gray; font-size:small;"><i>@item.Created.ToString("dd.MM.yyyy HH:mm")</i></h6>
+                    </div>
+
+                </div>
+                <div style="display:block; text-align:center; border-color:gray; width:5%; margin-inline-start:10px;">
+                    <div style="border-width: medium; border-style: solid; color: green; box-shadow: 3px 3px 3px rgba(0,0,0,0.5);">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="reaction-positive" asp-action="CommentReact" asp-controller="Home" asp-route-value="1" asp-route-CommentId="@item.Id" asp-route-TopicId="@Model.Topic.Id">▲<br />@item.Reactions.Where(item => item.Value == 1).Count()</a>
+                        }
+                        else
+                        {
+                            <a class="reaction-positive">▲<br />@item.Reactions.Where(item => item.Value == 1).Count()</a>
+                        }
+                    </div>
+                    <div style="border-width: medium; border-style: solid; color: red; box-shadow: 3px 3px 3px rgba(0,0,0,0.5);">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="reaction-negative" asp-action="CommentReact" asp-controller="Home" asp-route-value="-1" asp-route-CommentId="@item.Id" asp-route-TopicId="@Model.Topic.Id">@item.Reactions.Where(item => item.Value == -1).Count()<br />▼</a>
+                        }
+                        else
+                        {
+                            <a class="reaction-negative">@item.Reactions.Where(item => item.Value == -1).Count()<br />▼</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <hr style="margin-top:10px; margin-bottom:5px;" />
+        }
+    </div>
+}
+
+<hr style="margin-top:10px; margin-bottom:10px;" />
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h5 style="text-align:left; margin-top:0;"><b>Write here your opinion:</b></h5>
+    <div class="form-group" style="text-align:right;">
+        <form asp-action="Topic">
+            <textarea class="topic-box" asp-for="CommentText" rows="5" style="resize:none; width:100%; border-color:white;"></textarea>
+            <input type="submit" value="Send" class="btn btn-primary" style="text-align:right;" />
+        </form>
+    </div>
+}

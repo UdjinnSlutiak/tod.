@@ -1,0 +1,33 @@
+﻿@model List<Topic>
+
+@{
+    ViewData["Title"] = "Discussed Topics";
+}
+
+<div class="text-center">
+    <h4 style="font-weight:bold;">
+        Here you can see topics that you took part in discussion
+    </h4>
+</div>
+
+<hr />
+
+@foreach (var item in Model)
+{
+    <div class="topic-box" style="background-color:white;">
+        <a asp-action="Topic" asp-route-id="@item.Id" style="text-decoration:none; color:black;">
+            <h5 style="text-align: justify; padding-inline-start:10px; padding-inline-end:5px;">@Html.DisplayFor(modelItem => item.Text)</h5>
+
+            @if (item.User.Nickname == User.Identity.Name)
+            {
+                <h5 style="text-align: right; padding-inline-end: 10px; padding-bottom: 0; margin-bottom: 0;"><i><b>@Html.DisplayFor(modelItem => item.User.Nickname)</b></i></h5>
+            }
+            else
+            {
+                <h5 style="text-align: right; padding-inline-end:10px; padding-bottom:0; margin-bottom:0;"><i>@Html.DisplayFor(modelItem => item.User.Nickname)</i></h5>
+            }
+            <h6 style="text-align: right; padding-inline-end: 10px; padding-top: 2px; color: gray; font-size: small; "><i>@item.Created.ToString("dd.MM.yyyy")</i></h6>
+        </a>
+    </div>
+    <hr />
+}

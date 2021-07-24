@@ -1,0 +1,42 @@
+@model tod.Models.ViewModels.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="font-weight:bold">Registration</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4" >
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="" style="marker:none"></div>
+            <div class="form-group">
+                <label asp-for="Nickname" class="control-label" style="font-weight:bold;"></label>
+                <input asp-for="Nickname" class="form-control" />
+                <label>It will be your unique name everyone on this site will see.</label>
+                <span asp-validation-for="Nickname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label" style="font-weight:bold;"></label>
+                <input asp-for="Email" class="form-control" />
+                <label>We don't check if entered email is real, but we recommend to enter real one, for example to change your password if you will forget it.</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label" style="font-weight:bold;"></label>
+                <input asp-for="Password" class="form-control" />
+                <label>We recommend your password to contain upper and lowercase letters, numbers and symbols. It will make it more difficult to stole your account.</label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

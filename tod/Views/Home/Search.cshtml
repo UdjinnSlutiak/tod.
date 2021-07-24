@@ -1,0 +1,71 @@
+﻿@model tod.Models.ViewModels.SearchViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<div class="text-center">
+    <h4 style="font-weight:bold;">
+        Here you can search topics by its title, author and tags
+    </h4>
+</div>
+
+<hr />
+
+<div class="row" style="margin:0;">
+    <form asp-action="Find">
+        <div style="justify-items: stretch;">
+
+            <div style="display:flex; justify-items:stretch;">
+                <div style="margin-inline-end:20px; width:30%;">
+                    <label asp-for="Title" class="control-label" style="font-weight:bold;"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div style="margin-inline-end: 20px; width: 30%;">
+                    <label asp-for="Author" class="control-label" style="font-weight:bold;"></label>
+                    <input asp-for="Author" class="form-control" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+
+                <div style="width: 30%;">
+                    <label asp-for="Tags" class="control-label" style="font-weight:bold;"></label>
+                    <input asp-for="Tags" class="form-control" />
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div>
+                <label style="margin-block-start:8px;"><i>You can leave unnecessary fields empty.</i></label>
+
+                <div>
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<hr />
+
+@foreach (var item in Model.Topics)
+{
+    <div class="topic-box" style="background-color:white;">
+        <a asp-action="Topic" asp-route-id="@item.Id" style="text-decoration:none; color:black;">
+            <h5 style="text-align: justify; padding-inline-start:10px; padding-inline-end:5px;">@Html.DisplayFor(modelItem => item.Text)</h5>
+
+            @if (item.User.Nickname == User.Identity.Name)
+            {
+                <h5 style="text-align: right; padding-inline-end: 10px; padding-bottom: 0; margin-bottom: 0;"><i><b>@Html.DisplayFor(modelItem => item.User.Nickname)</b></i></h5>
+            }
+            else
+            {
+                <h5 style="text-align: right; padding-inline-end:10px; padding-bottom:0; margin-bottom:0;"><i>@Html.DisplayFor(modelItem => item.User.Nickname)</i></h5>
+            }
+            <h6 style="text-align: right; padding-inline-end: 10px; padding-top: 2px; color: gray; font-size: small;"><i>@item.Created.ToString("dd.MM.yyyy")</i></h6>
+        </a>
+    </div>
+    <hr />
+}

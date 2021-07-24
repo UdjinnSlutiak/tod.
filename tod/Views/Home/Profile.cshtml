@@ -1,0 +1,75 @@
+﻿@model tod.Models.ViewModels.ProfileModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="text-center">
+    <h4 style="font-weight:bold;">
+        Here you can edit your information and interests
+    </h4>
+</div>
+
+<hr />
+
+<h5>Your rating: <b><i>@Model.User.Rating</i></b></h5>
+<br />
+<h5>Your nickname: <b><i>@Model.User.Nickname</i></b></h5>
+<br />
+<h5>Your email: <b><i>@Model.User.Email</i></b></h5>
+<br />
+<div style="display:flex;">
+    <h5 style="margin-bottom:0;">Your interests tags:</h5>
+    @foreach (var item in Model.Tags)
+    {
+        <div class="topic-box" style="background-color: blanchedalmond; color: black; margin-inline-end: 15px; padding-inline-end: 5px; padding-inline-start: 5px; padding-block-start: 0; padding-block-end: 0;">
+            @item.Name
+        </div>
+    }
+</div>
+
+<hr />
+
+<br />
+<br />
+
+<div>
+    <h5>Here you can change your personal information:</h5>
+    <form asp-action="UserEditing" method="post">
+        <div style="justify-items: stretch;">
+
+            <div style="display:flex; justify-items:stretch;">
+                <div style="margin-inline-end:20px; width:30%;">
+                    <label class="control-label" style="font-weight:bold;">New Nickname</label>
+                    <input asp-for="NewName" class="form-control" />
+                    <span asp-validation-for="NewName" class="text-danger"></span>
+                </div>
+
+                <div style="margin-inline-end:20px; width:30%;">
+                    <label class="control-label" style="font-weight:bold;">New Email</label>
+                    <input asp-for="NewEmail" class="form-control" />
+                    <span asp-validation-for="NewEmail" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div>
+                <label style="margin-block-start:8px;"><i>You can leave unnecessary fields empty.<br />After saving chances, you will have to re-login.</i></label>
+
+                <div>
+                    <input type="submit" value="Apply" class="btn btn-primary" />
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<hr />
+
+<form method="post">
+    <div>
+        <h5>Here you can change your interests tags (<b>use comma or space as separators</b>):</h5>
+        <textarea asp-for="TagsTexts" class="topic-box" rows="1" style="resize: none; width: 100%; border-color: white;"></textarea>
+        <input class="btn btn-primary" style="text-align:right;" type="submit" value="Apply" asp-action="ChangeInterests" />
+    </div>
+</form>
