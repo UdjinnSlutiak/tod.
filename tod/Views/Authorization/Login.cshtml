@@ -1,0 +1,34 @@
+﻿@model tod.Models.ViewModels.LoginModel
+
+@{ ViewData["Title"] = "Log In";
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="font-weight:bold">Logging in</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Nickname" class="control-label" style="font-weight:bold;"></label>
+                <input asp-for="Nickname" class="form-control" />
+                <span asp-validation-for="Nickname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label" style="font-weight:bold;"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger asp-validation-summary" style="padding-bottom:10px;"></div>
+            <div class="form-group">
+                <input type="submit" value="Log In" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

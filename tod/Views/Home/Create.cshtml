@@ -1,0 +1,36 @@
+﻿@model tod.Models.ViewModels.CreateModel
+
+@{
+    ViewData["Title"] = "Topic Creating";
+}
+
+<div class="text-center">
+    <h4 style="font-weight:bold;">
+        Here you can create your own topic
+    </h4>
+</div>
+
+<hr />
+
+<div>
+    <div>
+        <form method="post">
+            <div>
+                <h5 style="">Write here your topic title:</h5>
+                <textarea asp-for="Text" class="topic-box" rows="3" style="resize: none; width: 100%; border-color: white;"></textarea>
+                <div asp-validation-summary="ModelOnly" class="text-danger asp-validation-summary" style="padding-bottom:10px;"></div>
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+
+            <hr style="margin-top:10px; margin-bottom:10px;" />
+
+            <h5>Write here topic tags, <b>using comma or space as separators</b>:</h5>
+            <textarea asp-for="TagsTexts" class="topic-box" rows="1" style="resize: none; width: 20%; border-color: white;"></textarea>
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+
+    </div>
+</div>

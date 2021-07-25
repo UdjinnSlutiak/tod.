@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Main";
+}
+
+<h1 style="text-align:center; font-size:5rem;">tod.</h1>
+
+<h4>There are three steps: <b>topic</b> -> <b>opinion</b> -> <b>discussion</b>. And these three things is all what about this service.</h4>
+
+<h4>If you thought about something interesting - post it here, and let discussion start. Speak with different people and rate their thougts.</h4>
+
+<h4>Are you looking for some existing interesting topic? Find it at 'Newest' tab, or use 'Search' tab to optimize it.</h4>
+
+<h4>'tod.' is for everyone and we encourage you to post, discuss and rate everything. People are very sociable - prove it here.</h4>
+
+<h4>And we recommend not to abuse, bully and swear - we want you and your interlocuter to feel satisfied and happy after every discussion.</h4>
+
+<h4>Be a good companion and your rating will show others - you are polite, clever, interesting, nice person.</h4>
+
+<h4>And whatever you write, remember: internet remembers everything ;)</h4>
+
+<hr />
+
+<div>
+    <div class="text-center" style="display: flex; flex-flow: row; justify-content: space-around;">
+        <div class="topic-box" style="display:inline-block; background-color:white;">
+            <h5>Log into your account<br />to create topics<br />and enter discussions</h5>
+            <a asp-controller="Authorization" asp-action="Login" class="btn btn-primary">Log In</a>
+        </div>
+
+        <div class="topic-box" style="display:inline-block; background-color:white; vertical-align:middle;">
+            <div>
+                <h5>Or create new account<br />if you are first here</h5>
+                <a asp-controller="Authorization" asp-action="Register" class="btn btn-primary">Register</a>
+            </div>
+        </div>
+
+    </div>
+</div>

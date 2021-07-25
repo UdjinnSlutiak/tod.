@@ -1,0 +1,233 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+div {
+    font-family: Courier New, Courier, monospace;
+}
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+.validation-summary-errors ul {
+    list-style: none;
+    marker:none;
+    display:flex;
+    margin: 0,0,0,0;
+    padding: 0,0,0,0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+    font-weight: bold;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: black;
+}
+
+.btn-primary {
+    background-color: lightgray;
+    border-color: lightgray;
+    border-radius: 0;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+.btn {
+    color: black;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+.btn.btn-primary:hover {
+    background-color: white;
+    border-color: white;
+    color:black;
+    transition: all 0.3s ease;
+}
+
+.btn:active, .btn-primary:active, a:active {
+    background-color: white;
+    border-color: white;
+    color: black;
+}
+
+.nav-pills, .nav-pills .show > .nav-link {
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.mymenu {
+    z-index:1;
+    color: black;
+    padding-top: inherit;
+    padding-bottom: inherit;
+    transition: all 0.3s ease;
+}
+
+.mymenu:hover {
+    background-color: white;
+    color: black;
+    padding-top: inherit;
+    padding-bottom: inherit;
+}
+
+a:hover {
+    color: black;
+    transition: all 0.3s ease;
+}
+
+.navbar {
+    background-color: lightgray;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: lightgray;
+    height: 100%;
+    width: 100%;
+    background-image: url("background.jpeg");
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.navbar li ul {
+    display: none;
+    list-style: none;
+    padding-inline-start: 0;
+    position: absolute;
+    background-color: lightgray;
+    transition: all 0.3s ease;
+}
+
+.navbar li > ul li {
+    padding-inline-start: 5px;
+    padding-inline-end: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    transition: all 0.3s ease;
+}
+
+.navbar li > ul li:hover {
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.navbar li:hover > ul {
+    display: block;
+}
+
+.xx {
+    display: flex;
+    flex-flow: row;
+}
+
+navbar a {
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.card {
+    padding: 30px;
+}
+
+.topic-box {
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+
+.reaction-positive {
+    color: green;
+    text-decoration-line: none;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    display: block;
+}
+
+.reaction-negative {
+    color: red;
+    text-decoration-line: none;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    display: block;
+}
+
+.reaction-positive:hover {
+    color: green;
+    text-decoration-line: none;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    background-color: lightgreen;
+    display: block;
+}
+
+.reaction-negative:hover {
+    color: red;
+    text-decoration-line: none;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    background-color: #ffcccc;
+    display: block;
+}
+
+.delete-button {
+    background-color: #ffcccc;
+    border-color: #ffcccc;
+}
+
+.btn.btn-primary.delete-button:hover {
+    background-color: red;
+    border-color: red;
+    color: white;
+}
