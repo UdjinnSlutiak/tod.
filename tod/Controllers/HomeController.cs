@@ -187,15 +187,19 @@ namespace tod.Controllers
 
             Topic topic = context.Topics.Where(t => t.Id == id).Include(t => t.User).Include(t => t.Tags).Include(t => t.Reactions).Include(t => t.Commentaries).ThenInclude(c => c.Reactions).Include(t => t.Commentaries).ThenInclude(c => c.User).FirstOrDefault();
 
-            TopicModel model = new()
+            if (topic != null)
             {
-                Topic = topic,
-                Id = topic.Id,
-                TopicPositiveReactions = topic.Reactions.Where(r => r.Value == 1).Count(),
-                TopicNegativeReactions = topic.Reactions.Where(r => r.Value == -1).Count()
-            };
+                TopicModel model = new()
+                {
+                    Topic = topic,
+                    Id = topic.Id,
+                    TopicPositiveReactions = topic.Reactions.Where(r => r.Value == 1).Count(),
+                    TopicNegativeReactions = topic.Reactions.Where(r => r.Value == -1).Count()
+                };
 
-            return View(model);
+                return View(model);
+            }
+            else return View("Main");
         }
 
         [Authorize]
@@ -389,20 +393,20 @@ namespace tod.Controllers
         [HttpPost]
         public IActionResult Find(SearchViewModel model)
         {
-            if (!String.IsNullOrEmpty(model.Author) || !String.IsNullOrEmpty(model.Title) || !String.IsNullOrEmpty(model.Tags))
+            if (!string.IsNullOrEmpty(model.Author) || !string.IsNullOrEmpty(model.Title) || !string.IsNullOrEmpty(model.Tags))
             {
                 List<Topic> topics = context.Topics.Include(t => t.User).Include(t => t.Tags).ToList();
 
 
-                if (!String.IsNullOrEmpty(model.Author))
+                if (!string.IsNullOrEmpty(model.Author))
                     topics = topics.Where(t => t.User.Nickname == model.Author).ToList();
 
-                if (!String.IsNullOrEmpty(model.Title))
+                if (!string.IsNullOrEmpty(model.Title))
                 {
                     topics = topics.Where(t => t.Text.Contains(model.Title, StringComparison.InvariantCultureIgnoreCase)).ToList();
                 }
 
-                if (!String.IsNullOrEmpty(model.Tags))
+                if (!string.IsNullOrEmpty(model.Tags))
                 {
                     List<string> tagsKeywords = model.Tags.Split(new string[] { " ", ",", ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
                     List<Tag> tags = new();
@@ -500,9 +504,19 @@ namespace tod.Controllers
         public IActionResult DeleteTopic(int Id)
         {
             Topic topic = context.Topics.Where(t => t.Id == Id).Include(t => t.User).Include(t => t.Tags).Include(t => t.Reactions).Include(t => t.Commentaries).FirstOrDefault();
+            List<Favorite> favorites = context.Favorites.Where(f => f.Topic.Id == Id).Include(f => f.Topic).ToList();
+            List<Commentary> commentaries = context.Commentaries.Where(c => c.Topic.Id == Id).Include(c => c.Reactions).ToList();
 
             if (User.Identity.Name == topic.User.Nickname)
             {
+                foreach (var item in commentaries)
+                    context.RemoveRange(item.Reactions);
+
+                context.RemoveRange(topic.Reactions);
+                context.Update(topic);
+                context.UpdateRange(commentaries);
+                context.RemoveRange(commentaries);
+                context.RemoveRange(favorites);
                 context.Remove(topic);
                 context.SaveChanges();
             }

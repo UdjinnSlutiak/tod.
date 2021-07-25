@@ -13,6 +13,7 @@
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -20,6 +21,7 @@
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Authorization\" />
     <Folder Include="wwwroot\css\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\css\" />
